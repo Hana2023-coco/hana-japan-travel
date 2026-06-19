@@ -381,6 +381,10 @@ st.markdown(f"""
     font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
 }}
 
+html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput, .stSelectbox, .stRadio, button {{
+    font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
+}}
+
 html, body, .stApp {{
     font-size: 18px;
 }}
