@@ -13,7 +13,7 @@ st.set_page_config(
     page_title="Hana Japan Summer Trip",
     page_icon="🍀",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # -----------------------------
@@ -379,6 +379,7 @@ st.markdown(f"""
 
 * {{
     font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
+    box-sizing: border-box;
 }}
 
 html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput, .stSelectbox, .stRadio, button {{
@@ -397,19 +398,76 @@ html, body, .stApp {{
     color: #2f3a2f;
 }}
 
-.block-container {{
-    max-width: 1360px;
-    padding-top: 1rem;
-    padding-bottom: 1.2rem;
+/* Streamlit 기본 헤더/사이드바 아이콘 문제 방지 */
+header[data-testid="stHeader"] {{
+    background: rgba(251,250,243,0.82) !important;
 }}
-
 section[data-testid="stSidebar"] {{
-    background: rgba(251,250,243,0.96);
-    border-right: 1px solid #dfe8cf;
+    display: none !important;
+}}
+button[kind="header"] {{
+    display: none !important;
 }}
 
-section[data-testid="stSidebar"] * {{
-    font-size: 18px !important;
+.block-container {{
+    max-width: 980px;
+    padding-top: 1rem;
+    padding-bottom: 6.8rem;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+}}
+
+.mobile-topbar {{
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 2px 12px 2px;
+    margin-bottom: 4px;
+    background: rgba(251,250,243,0.90);
+    backdrop-filter: blur(12px);
+}}
+
+.mobile-brand {{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 22px;
+    font-weight: 900;
+    color: #2f3a2f;
+    white-space: nowrap;
+}}
+
+.mobile-icon-btn {{
+    width: 36px;
+    height: 36px;
+    border-radius: 14px;
+    border: 1px solid #dfe8cf;
+    background: rgba(255,255,255,0.84);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 14px rgba(127,150,94,0.10);
+    font-size: 18px;
+}}
+
+.nav-select-wrap {{
+    padding: 10px 14px 12px 14px;
+    margin-bottom: 16px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.94);
+    border: 1px solid #dfe8cf;
+    box-shadow: 0 8px 20px rgba(127,150,94,0.10);
+}}
+
+.nav-select-wrap .nav-label {{
+    color: #55714e;
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: 900;
 }}
 
 .main-hero {{
@@ -433,6 +491,7 @@ section[data-testid="stSidebar"] * {{
 
 .main-title {{
     font-size: 42px;
+    line-height: 1.08;
     font-weight: 900;
     color: #2f3a2f;
 }}
@@ -591,13 +650,112 @@ div[data-testid="stMetric"] {{
     font-size: 18px !important;
 }}
 
+.bottom-tabs {{
+    position: fixed;
+    left: 50%;
+    bottom: 12px;
+    transform: translateX(-50%);
+    width: min(520px, calc(100% - 24px));
+    z-index: 9999;
+    padding: 9px 10px 6px 10px;
+    border-radius: 26px;
+    background: rgba(255,255,255,0.96);
+    border: 1px solid #dfe8cf;
+    box-shadow: 0 12px 28px rgba(88,105,70,0.18);
+    backdrop-filter: blur(12px);
+}}
+
+.bottom-tabs-spacer {{
+    height: 88px;
+}}
+
 h1 {{ font-size: 32px !important; }}
 h2 {{ font-size: 28px !important; }}
 h3 {{ font-size: 24px !important; }}
 p, label {{ font-size: 18px !important; }}
+
+@media (max-width: 768px) {{
+    .block-container {{
+        max-width: 100% !important;
+        padding-left: 0.85rem !important;
+        padding-right: 0.85rem !important;
+        padding-top: 0.55rem !important;
+        padding-bottom: 6.4rem !important;
+    }}
+
+    .mobile-topbar {{
+        padding-top: 8px;
+    }}
+
+    .mobile-brand {{
+        font-size: 19px;
+    }}
+
+    .main-hero {{
+        padding: 16px 18px !important;
+        border-radius: 20px !important;
+        margin-bottom: 14px !important;
+    }}
+
+    .main-hero::before {{
+        right: 14px !important;
+        top: 12px !important;
+        font-size: 18px !important;
+    }}
+
+    .main-title {{
+        font-size: 27px !important;
+        line-height: 1.08 !important;
+        padding-right: 36px !important;
+    }}
+
+    .sub-title {{
+        font-size: 14px !important;
+        padding: 5px 9px !important;
+        line-height: 1.35 !important;
+    }}
+
+    .mood-line {{
+        font-size: 15px !important;
+        line-height: 1.45 !important;
+    }}
+
+    h1 {{ font-size: 24px !important; }}
+    h2 {{ font-size: 20px !important; }}
+    h3 {{ font-size: 18px !important; }}
+    p, label {{ font-size: 15px !important; }}
+
+    .card, .place-card, .card-soft, .route-card, .timeline-box {{
+        padding: 14px !important;
+        border-radius: 16px !important;
+    }}
+
+    .big-number {{
+        font-size: 22px !important;
+    }}
+
+    .sticker, .memo-strip, .category-pill {{
+        font-size: 14px !important;
+        padding: 4px 9px !important;
+    }}
+
+    .expense-row {{
+        grid-template-columns: 1fr !important;
+        gap: 4px !important;
+        font-size: 14px !important;
+    }}
+
+    div[data-testid="column"] {{
+        min-width: 100% !important;
+    }}
+
+    .bottom-tabs {{
+        bottom: 8px;
+        width: calc(100% - 16px);
+    }}
+}}
 </style>
 """, unsafe_allow_html=True)
-
 
 # -----------------------------
 # 공통 렌더 함수
@@ -715,31 +873,81 @@ def render_place_cards(df):
         """, unsafe_allow_html=True)
 
 
-render_header()
+MENU_ITEMS = [
+    "🏠 대시보드",
+    "📅 7월 달력",
+    "🗓️ 상세 일정",
+    "🗺️ 이동방법",
+    "📍 가고싶은 곳",
+    "✈️ 항공권",
+    "🚄 교통",
+    "🏨 숙소",
+    "🎤 공연",
+    "💴 여행 가계부",
+    "✅ 준비물",
+    "📎 파일 보관함",
+    "📝 메모",
+    "💾 저장/초기화",
+]
 
-with st.sidebar:
-    st.markdown("### 메뉴")
-    menu = st.radio(
-        "메뉴",
-        [
-            "🏠 대시보드",
-            "📅 7월 달력",
-            "🗓️ 상세 일정",
-            "🗺️ 이동방법",
-            "📍 가고싶은 곳",
-            "✈️ 항공권",
-            "🚄 교통",
-            "🏨 숙소",
-            "🎤 공연",
-            "💴 여행 가계부",
-            "✅ 준비물",
-            "📎 파일 보관함",
-            "📝 메모",
-            "💾 저장/초기화"
-        ],
-        label_visibility="collapsed"
+BOTTOM_ITEMS = [
+    ("🏠", "홈", "🏠 대시보드"),
+    ("📅", "일정", "📅 7월 달력"),
+    ("🗺️", "지도/이동", "🗺️ 이동방법"),
+    ("💴", "가계부", "💴 여행 가계부"),
+    ("⋯", "더보기", "📝 메모"),
+]
+
+if "menu" not in st.session_state or st.session_state.menu not in MENU_ITEMS:
+    st.session_state.menu = "🏠 대시보드"
+
+
+def set_menu(target):
+    st.session_state.menu = target
+    st.rerun()
+
+
+def render_app_topbar():
+    st.markdown("""
+    <div class="mobile-topbar">
+        <div class="mobile-icon-btn">☰</div>
+        <div class="mobile-brand">🍀 Hana’s Japan Summer Trip</div>
+        <div class="mobile-icon-btn">🌸</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def render_menu_select():
+    st.markdown('<div class="nav-select-wrap"><div class="nav-label">메뉴 선택</div>', unsafe_allow_html=True)
+    selected = st.selectbox(
+        "메뉴 선택",
+        MENU_ITEMS,
+        index=MENU_ITEMS.index(st.session_state.menu),
+        label_visibility="collapsed",
+        key="top_menu_select",
     )
+    st.markdown('</div>', unsafe_allow_html=True)
+    if selected != st.session_state.menu:
+        st.session_state.menu = selected
+        st.rerun()
 
+
+def render_bottom_tabs():
+    st.markdown('<div class="bottom-tabs">', unsafe_allow_html=True)
+    cols = st.columns(len(BOTTOM_ITEMS))
+    for col, (icon, label, target) in zip(cols, BOTTOM_ITEMS):
+        with col:
+            active = st.session_state.menu == target
+            button_label = f"{icon}\n{label}" if not active else f"● {icon}\n{label}"
+            if st.button(button_label, key=f"bottom_{target}", use_container_width=True):
+                set_menu(target)
+    st.markdown('</div><div class="bottom-tabs-spacer"></div>', unsafe_allow_html=True)
+
+
+render_app_topbar()
+render_header()
+render_menu_select()
+menu = st.session_state.menu
 
 # -----------------------------
 # 메뉴별 화면
@@ -1405,3 +1613,6 @@ elif menu == "💾 저장/초기화":
             st.session_state.attachments = DEFAULT_ATTACHMENTS.copy()
             save_data()
             st.warning("기본값으로 초기화했어.")
+
+
+render_bottom_tabs()
