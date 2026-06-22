@@ -1,3 +1,4 @@
+
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -12,7 +13,7 @@ st.set_page_config(
     page_title="Hana Japan Summer Trip",
     page_icon="🍀",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 # -----------------------------
@@ -372,104 +373,76 @@ def apply_fx_by_date(expenses, fx):
 # -----------------------------
 # CSS
 # -----------------------------
-CSS_TEXT = """
+st.markdown(f"""
 <style>
-__FONT_CSS__
+{FONT_CSS}
 
-* {
+* {{
     font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
-    box-sizing: border-box;
-}
+}}
 
-html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput, .stSelectbox, .stRadio, button {
+html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput, .stSelectbox, .stRadio, button {{
     font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
-}
+}}
 
-html, body, .stApp {
+html, body, .stApp {{
     font-size: 18px;
-}
+}}
 
-.stApp {
+.stApp {{
     background:
         radial-gradient(circle at 8% 8%, rgba(210,231,183,0.28), transparent 20%),
         radial-gradient(circle at 92% 8%, rgba(238,248,225,0.50), transparent 22%),
         linear-gradient(180deg, #fbfaf3 0%, #ffffff 48%, #f6fbef 100%);
     color: #2f3a2f;
-}
+}}
 
-/* Streamlit 기본 헤더/사이드바 아이콘 문제 방지 */
-header[data-testid="stHeader"] {
-    background: rgba(251,250,243,0.82) !important;
-}
-section[data-testid="stSidebar"] {
+.block-container {{
+    max-width: 1500px;
+    padding-top: 4.6rem;
+    padding-bottom: 4rem;
+    padding-left: 2.2rem;
+    padding-right: 2.2rem;
+}}
+
+
+/* 상단 Deploy/툴바가 본문을 가리지 않게 정리 */
+header[data-testid="stHeader"] {{
+    background: rgba(251,250,243,0.96) !important;
+    height: 3.6rem !important;
+    box-shadow: none !important;
+}}
+div[data-testid="stToolbar"], #MainMenu, footer {{
+    visibility: hidden !important;
     display: none !important;
-}
-button[kind="header"] {
+}}
+button[kind="header"] {{
     display: none !important;
-}
+}}
 
-.block-container {
-    max-width: 980px;
-    padding-top: 1rem;
-    padding-bottom: 6.8rem;
-    padding-left: 1.1rem;
-    padding-right: 1.1rem;
-}
+/* PC 홈페이지 사용 기준: 상단 여백과 본문 폭 정리 */
+div[data-testid="stDecoration"] {{
+    display: none !important;
+}}
 
-.mobile-topbar {
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 10px 2px 12px 2px;
-    margin-bottom: 4px;
-    background: rgba(251,250,243,0.90);
-    backdrop-filter: blur(12px);
-}
 
-.mobile-brand {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 22px;
-    font-weight: 900;
-    color: #2f3a2f;
-    white-space: nowrap;
-}
+section[data-testid="stSidebar"] {{
+    background: rgba(251,250,243,0.96);
+    border-right: 1px solid #dfe8cf;
+    width: 230px !important;
+    min-width: 230px !important;
+    max-width: 230px !important;
+}}
 
-.mobile-icon-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 14px;
-    border: 1px solid #dfe8cf;
-    background: rgba(255,255,255,0.84);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 5px 14px rgba(127,150,94,0.10);
-    font-size: 18px;
-}
+section[data-testid="stSidebar"] > div {{
+    padding-top: 3.8rem !important;
+}}
 
-.nav-select-wrap {
-    padding: 10px 14px 12px 14px;
-    margin-bottom: 16px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.94);
-    border: 1px solid #dfe8cf;
-    box-shadow: 0 8px 20px rgba(127,150,94,0.10);
-}
+section[data-testid="stSidebar"] * {{
+    font-size: 18px !important;
+}}
 
-.nav-select-wrap .nav-label {
-    color: #55714e;
-    font-size: 14px;
-    margin-bottom: 5px;
-    font-weight: 900;
-}
-
-.main-hero {
+.main-hero {{
     position: relative;
     padding: 22px 28px;
     border-radius: 24px;
@@ -477,25 +450,24 @@ button[kind="header"] {
     border: 1px solid #dfe8cf;
     box-shadow: 0 12px 28px rgba(127,150,94,0.13);
     margin-bottom: 20px;
-}
+}}
 
-.main-hero::before {
+.main-hero::before {{
     content: "🍀 ✧ 𖧷";
     position: absolute;
     right: 24px;
     top: 16px;
     color: #9bbd7a;
     font-size: 28px;
-}
+}}
 
-.main-title {
+.main-title {{
     font-size: 42px;
-    line-height: 1.08;
     font-weight: 900;
     color: #2f3a2f;
-}
+}}
 
-.sub-title {
+.sub-title {{
     display: inline-block;
     margin-top: 8px;
     padding: 6px 13px;
@@ -503,15 +475,15 @@ button[kind="header"] {
     border: 1px dashed #b8cfa2;
     color: #55714e;
     font-size: 17px;
-}
+}}
 
-.mood-line {
+.mood-line {{
     margin-top: 12px;
     font-size: 19px;
     color: #8aa36c;
-}
+}}
 
-.card, .place-card {
+.card, .place-card {{
     position: relative;
     padding: 18px;
     border-radius: 20px;
@@ -519,25 +491,25 @@ button[kind="header"] {
     border: 1px solid #dfe8cf;
     box-shadow: 0 8px 20px rgba(127,150,94,0.10);
     margin-bottom: 14px;
-}
+}}
 
-.card::after {
+.card::after {{
     content: "✦";
     position: absolute;
     right: 18px;
     top: 14px;
     color: #c9dbaa;
-}
+}}
 
-.card-soft {
+.card-soft {{
     padding: 17px;
     border-radius: 18px;
     background: linear-gradient(135deg, #ffffff, #f7fbef);
     border: 1px dashed #b8cfa2;
     margin-bottom: 12px;
-}
+}}
 
-.sticker {
+.sticker {{
     display: inline-block;
     padding: 5px 13px;
     border-radius: 999px;
@@ -546,9 +518,9 @@ button[kind="header"] {
     border: 1px dashed #9fbd84;
     font-weight: 900;
     margin-bottom: 10px;
-}
+}}
 
-.memo-strip, .category-pill {
+.memo-strip, .category-pill {{
     display: inline-block;
     background: #ffffff;
     border: 1px solid #e6e0d0;
@@ -556,47 +528,47 @@ button[kind="header"] {
     padding: 5px 11px;
     margin: 4px;
     border-radius: 999px;
-}
+}}
 
-.big-number {
+.big-number {{
     font-size: 30px;
     font-weight: 900;
     color: #3e5b38;
-}
+}}
 
-.info-line {
+.info-line {{
     padding: 10px 13px;
     margin: 7px 0;
     border-radius: 14px;
     background: rgba(255,255,255,0.88);
     border: 1px solid #dfe8cf;
-}
+}}
 
-.route-card {
+.route-card {{
     padding: 14px 16px;
     border-radius: 18px;
     background: linear-gradient(135deg, #ffffff, #f8fbef);
     border: 1px solid #dfe8cf;
     box-shadow: 0 6px 14px rgba(127,150,94,0.08);
     margin-bottom: 10px;
-}
+}}
 
-.route-arrow {
+.route-arrow {{
     color: #7d9d66;
     font-weight: 900;
     font-size: 22px;
-}
+}}
 
-.timeline-box {
+.timeline-box {{
     padding: 13px 16px;
     border-left: 5px solid #b8cfa2;
     background: rgba(255,255,255,0.92);
     border-radius: 16px;
     margin-bottom: 9px;
     box-shadow: 0 6px 14px rgba(127,150,94,0.08);
-}
+}}
 
-.expense-row {
+.expense-row {{
     display: grid;
     grid-template-columns: .7fr 1fr 1.4fr 1fr 1fr 1fr;
     gap: 8px;
@@ -606,268 +578,141 @@ button[kind="header"] {
     border-radius: 16px;
     background: rgba(255,255,255,0.94);
     border: 1px solid #dfe8cf;
-}
+}}
 
-.expense-head {
+.expense-head {{
     color: #55714e;
     font-weight: 900;
     background: #f2f8e8;
-}
+}}
 
-.settle-done { color: #3e7c43; }
-.settle-plan { color: #b67b43; }
+.settle-done {{ color: #3e7c43; }}
+.settle-plan {{ color: #b67b43; }}
 
-.map-note {
+.map-note {{
     padding: 14px;
     border-radius: 18px;
     border: 1px dashed #b8cfa2;
     background: rgba(255,255,255,0.9);
     margin-bottom: 12px;
-}
+}}
 
-div[data-testid="stMetric"] {
+div[data-testid="stMetric"] {{
     background: rgba(255,255,255,0.94);
     padding: 15px;
     border-radius: 18px;
     border: 1px solid #dfe8cf;
     box-shadow: 0 7px 16px rgba(127,150,94,0.10);
-}
+}}
 
-.stButton > button {
+.stButton > button {{
     border-radius: 999px;
     background: linear-gradient(90deg, #d9eac4, #f4f8df);
     color: #33452f;
     border: 1px solid #b8cfa2;
     font-weight: 900;
     font-size: 18px !important;
-}
+}}
 
-.stTextArea textarea, .stTextInput input {
+.stTextArea textarea, .stTextInput input {{
     border-radius: 14px;
     border: 1px solid #cbdcb8;
     background: rgba(255,255,255,0.96);
     font-size: 18px !important;
-}
+}}
 
-.bottom-tabs {
-    position: fixed;
-    left: 50%;
-    bottom: 12px;
-    transform: translateX(-50%);
-    width: min(520px, calc(100% - 24px));
-    z-index: 9999;
-    padding: 9px 10px 6px 10px;
-    border-radius: 26px;
-    background: rgba(255,255,255,0.96);
-    border: 1px solid #dfe8cf;
-    box-shadow: 0 12px 28px rgba(88,105,70,0.18);
-    backdrop-filter: blur(12px);
-}
+h1 {{ font-size: 32px !important; }}
+h2 {{ font-size: 28px !important; }}
+h3 {{ font-size: 24px !important; }}
+p, label {{ font-size: 18px !important; }}
 
-.bottom-tabs-spacer {
-    height: 88px;
-}
-
-
-.mobile-calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    gap: 7px;
-    margin-top: 10px;
-}
-
-.mobile-calendar-head {
-    text-align: center;
-    font-weight: 900;
-    color: #55714e;
-    font-size: 16px;
-    padding: 4px 0;
-}
-
-.mobile-day {
-    min-height: 74px;
-    border-radius: 18px;
-    background: rgba(255,255,255,0.94);
-    border: 1px solid #dfe8cf;
-    box-shadow: 0 5px 12px rgba(127,150,94,0.07);
-    padding: 8px 6px;
-    overflow: hidden;
-}
-
-.mobile-day.blank {
-    opacity: 0.38;
-}
-
-.mobile-day.trip {
-    border: 2px dashed #b8cfa2;
-    background: linear-gradient(135deg, #ffffff, #f2f9e8);
-}
-
-.mobile-day.concert {
-    border: 2px dashed #d9b7c5;
-    background: linear-gradient(135deg, #fffafc, #f4f8df);
-}
-
-.day-num {
-    font-size: 18px;
-    font-weight: 900;
-    color: #33452f;
-    line-height: 1;
-}
-
-.day-note {
-    margin-top: 5px;
-    font-size: 12px;
-    line-height: 1.25;
-    color: #55714e;
-    word-break: keep-all;
-}
-
-.day-chip-row {
-    display: flex;
-    gap: 7px;
-    overflow-x: auto;
-    padding: 4px 0 12px 0;
-    margin-bottom: 6px;
-}
-
-.day-chip {
-    white-space: nowrap;
-    border-radius: 999px;
-    padding: 7px 12px;
-    background: #ffffff;
-    border: 1px solid #dfe8cf;
-    color: #55714e;
-    font-weight: 900;
-    box-shadow: 0 4px 10px rgba(127,150,94,0.08);
-}
-
-.day-chip.active {
-    background: #3e7c43;
-    color: white;
-}
-
-.more-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.more-card {
-    padding: 16px;
-    min-height: 92px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.94);
-    border: 1px solid #dfe8cf;
-    box-shadow: 0 8px 20px rgba(127,150,94,0.10);
-}
-
-.more-title {
-    font-size: 18px;
-    font-weight: 900;
-    color: #2f3a2f;
-}
-
-.more-desc {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #7d9d66;
-}
-
-.bottom-tabs button {
-    min-height: 54px !important;
-    padding: 5px 4px !important;
-    font-size: 13px !important;
-    line-height: 1.15 !important;
-    border-radius: 18px !important;
-}
-
-
-h1 { font-size: 32px !important; }
-h2 { font-size: 28px !important; }
-h3 { font-size: 24px !important; }
-p, label { font-size: 18px !important; }
-
-@media (max-width: 768px) {
-    .block-container {
+/* -----------------------------
+   Mobile / PWA optimization
+----------------------------- */
+@media (max-width: 1000px) {{
+    .block-container {{
         max-width: 100% !important;
-        padding-left: 0.85rem !important;
-        padding-right: 0.85rem !important;
-        padding-top: 0.55rem !important;
-        padding-bottom: 6.4rem !important;
-    }
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+        padding-top: 3.6rem !important;
+    }}
 
-    .mobile-topbar {
-        padding-top: 8px;
-    }
-
-    .mobile-brand {
-        font-size: 19px;
-    }
-
-    .main-hero {
+    .main-hero {{
         padding: 16px 18px !important;
         border-radius: 20px !important;
         margin-bottom: 14px !important;
-    }
+    }}
 
-    .main-hero::before {
+    .main-hero::before {{
         right: 14px !important;
         top: 12px !important;
         font-size: 18px !important;
-    }
+    }}
 
-    .main-title {
-        font-size: 27px !important;
-        line-height: 1.08 !important;
-        padding-right: 36px !important;
-    }
+    .main-title {{
+        font-size: 28px !important;
+        line-height: 1.1 !important;
+        padding-right: 40px !important;
+    }}
 
-    .sub-title {
+    .sub-title {{
         font-size: 14px !important;
         padding: 5px 9px !important;
         line-height: 1.35 !important;
-    }
+    }}
 
-    .mood-line {
+    .mood-line {{
         font-size: 15px !important;
         line-height: 1.45 !important;
-    }
+    }}
 
-    h1 { font-size: 24px !important; }
-    h2 { font-size: 20px !important; }
-    h3 { font-size: 18px !important; }
-    p, label { font-size: 15px !important; }
+    h1 {{ font-size: 24px !important; }}
+    h2 {{ font-size: 20px !important; }}
+    h3 {{ font-size: 18px !important; }}
+    p, label {{ font-size: 15px !important; }}
 
-    .card, .place-card, .card-soft, .route-card, .timeline-box {
+    .card, .place-card, .card-soft, .route-card, .timeline-box {{
         padding: 14px !important;
         border-radius: 16px !important;
-    }
+    }}
 
-    .big-number {
+    .big-number {{
         font-size: 22px !important;
-    }
+    }}
 
-    .sticker, .memo-strip, .category-pill {
+    .sticker, .memo-strip, .category-pill {{
         font-size: 14px !important;
         padding: 4px 9px !important;
-    }
+    }}
 
-    .expense-row {
+    section[data-testid="stSidebar"] {{
+        width: 250px !important;
+        min-width: 250px !important;
+        max-width: 250px !important;
+    }}
+
+    section[data-testid="stSidebar"] * {{
+        font-size: 16px !important;
+    }}
+
+    div[data-testid="column"] {{
+        min-width: 100% !important;
+    }}
+
+    .expense-row {{
         grid-template-columns: 1fr !important;
         gap: 4px !important;
         font-size: 14px !important;
-    }
-    .bottom-tabs {
-        bottom: 8px;
-        width: calc(100% - 16px);
-    }
-}
-</style>
-""".replace("__FONT_CSS__", FONT_CSS)
+    }}
 
-st.markdown(CSS_TEXT, unsafe_allow_html=True)
+    button[kind="header"] {{
+        display: none !important;
+    }}
+}}
+
+</style>
+""", unsafe_allow_html=True)
+
 
 # -----------------------------
 # 공통 렌더 함수
@@ -985,66 +830,31 @@ def render_place_cards(df):
         """, unsafe_allow_html=True)
 
 
-MENU_ITEMS = [
-    "🏠 대시보드",
-    "📅 7월 달력",
-    "🗓️ 상세 일정",
-    "🗺️ 이동방법",
-    "💴 여행 가계부",
-    "⋯ 더보기",
-    "📍 가고싶은 곳",
-    "✈️ 항공권",
-    "🚄 교통",
-    "🏨 숙소",
-    "🎤 공연",
-    "✅ 준비물",
-    "📎 파일 보관함",
-    "📝 메모",
-    "💾 저장/초기화",
-]
-
-BOTTOM_ITEMS = [
-    ("🏠", "홈", "🏠 대시보드"),
-    ("📅", "일정", "📅 7월 달력"),
-    ("🗓️", "상세", "🗓️ 상세 일정"),
-    ("💴", "가계부", "💴 여행 가계부"),
-    ("⋯", "더보기", "⋯ 더보기"),
-]
-
-if "menu" not in st.session_state or st.session_state.menu not in MENU_ITEMS:
-    st.session_state.menu = "🏠 대시보드"
-
-
-def set_menu(target):
-    st.session_state.menu = target
-    st.rerun()
-
-
-def render_app_topbar():
-    st.markdown("""
-    <div class="mobile-topbar">
-        <div class="mobile-icon-btn">☰</div>
-        <div class="mobile-brand">🍀 Hana’s Japan Summer Trip</div>
-        <div class="mobile-icon-btn">🌸</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-
-def render_bottom_tabs():
-    st.markdown('<div class="bottom-tabs">', unsafe_allow_html=True)
-    cols = st.columns(len(BOTTOM_ITEMS))
-    for col, (icon, label, target) in zip(cols, BOTTOM_ITEMS):
-        with col:
-            active = st.session_state.menu == target
-            button_label = f"{icon}\n{label}" if not active else f"● {icon}\n{label}"
-            if st.button(button_label, key=f"bottom_{target}", use_container_width=True):
-                set_menu(target)
-    st.markdown('</div><div class="bottom-tabs-spacer"></div>', unsafe_allow_html=True)
-
-
-render_app_topbar()
 render_header()
-menu = st.session_state.menu
+
+with st.sidebar:
+    st.markdown("### 메뉴")
+    menu = st.radio(
+        "메뉴",
+        [
+            "🏠 대시보드",
+            "📅 7월 달력",
+            "🗓️ 상세 일정",
+            "🗺️ 이동방법",
+            "📍 가고싶은 곳",
+            "✈️ 항공권",
+            "🚄 교통",
+            "🏨 숙소",
+            "🎤 공연",
+            "💴 여행 가계부",
+            "✅ 준비물",
+            "📎 파일 보관함",
+            "📝 메모",
+            "💾 저장/초기화"
+        ],
+        label_visibility="collapsed"
+    )
+
 
 # -----------------------------
 # 메뉴별 화면
@@ -1129,80 +939,115 @@ if menu == "🏠 대시보드":
 elif menu == "📅 7월 달력":
     st.header("📅 2026년 7월 전체 달력")
 
-    day_summaries = {
-        8: "출국 · 간사이",
-        9: "교토 🐇",
-        10: "도쿄 이동",
-        11: "공연 🎤",
-        12: "공연·귀국"
-    }
+    def event_html(day_key):
+        return "<br>".join([escape(x) for x in st.session_state.events.get(day_key, [])[:4]])
 
-    st.markdown("""
-    <div class="card">
-        <div class="sticker">JULY PLAN</div>
-        <h3>여행 날짜 한눈에 보기</h3>
-        <p>7/8~7/12 일정만 크게 표시해서 모바일에서 보기 편하게 정리했어.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    cells = []
-    cells.extend([""] * 3)  # 2026년 7월 1일은 수요일
-    cells.extend(list(range(1, 32)))
-    while len(cells) % 7 != 0:
-        cells.append("")
-
-    html = """
-    <div class="mobile-calendar-grid">
-        <div class="mobile-calendar-head">일</div>
-        <div class="mobile-calendar-head">월</div>
-        <div class="mobile-calendar-head">화</div>
-        <div class="mobile-calendar-head">수</div>
-        <div class="mobile-calendar-head">목</div>
-        <div class="mobile-calendar-head">금</div>
-        <div class="mobile-calendar-head">토</div>
+    html = f"""
+    <style>
+      {FONT_CSS}
+      * {{ font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important; }}
+      body {{ background: transparent; }}
+      .calendar {{
+        width: 100%;
+        table-layout: fixed;
+        border-spacing: 6px;
+        border-collapse: separate;
+      }}
+      .calendar th {{
+        height: 30px;
+        color: #55714e;
+        font-size: 17px;
+        font-weight: 900;
+      }}
+      .calendar td {{
+        height: 138px;
+        vertical-align: top;
+        padding: 9px;
+        border-radius: 16px;
+        background: rgba(255,255,255,0.95);
+        border: 1px solid #dfe8cf;
+        box-shadow: 0 5px 12px rgba(127,150,94,0.07);
+        font-size: 13px;
+        overflow: hidden;
+      }}
+      .sun {{ color: #d98b8b; }}
+      .sat {{ color: #7b9cce; }}
+      .date {{
+        font-weight: 900;
+        font-size: 17px;
+        margin-bottom: 4px;
+        color: #33452f;
+      }}
+      .trip {{
+        background: linear-gradient(135deg, #ffffff, #f2f9e8) !important;
+        border: 2px dashed #b8cfa2 !important;
+      }}
+      .concert {{
+        background: linear-gradient(135deg, #fffafc, #f4f8df) !important;
+        border: 2px dashed #d9b7c5 !important;
+      }}
+      .event {{
+        line-height: 1.22;
+        color: #33452f;
+      }}
+    </style>
+    <table class="calendar">
+      <tr>
+        <th class="sun">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th class="sat">토</th>
+      </tr>
+      <tr>
+        <td></td><td></td><td></td>
+        <td><div class="date">1</div></td>
+        <td><div class="date">2</div></td>
+        <td><div class="date">3</div></td>
+        <td><div class="date sat">4</div></td>
+      </tr>
+      <tr>
+        <td><div class="date sun">5</div></td>
+        <td><div class="date">6</div></td>
+        <td><div class="date">7</div></td>
+        <td class="trip"><div class="date">8</div><div class="event">{event_html("7/8")}</div></td>
+        <td class="trip"><div class="date">9 🐇</div><div class="event">{event_html("7/9")}</div></td>
+        <td class="trip"><div class="date">10</div><div class="event">{event_html("7/10")}</div></td>
+        <td class="concert"><div class="date sat">11</div><div class="event">{event_html("7/11")}</div></td>
+      </tr>
+      <tr>
+        <td class="concert"><div class="date sun">12</div><div class="event">{event_html("7/12")}</div></td>
+        <td><div class="date">13</div></td>
+        <td><div class="date">14</div></td>
+        <td><div class="date">15</div></td>
+        <td><div class="date">16</div></td>
+        <td><div class="date">17</div></td>
+        <td><div class="date sat">18</div></td>
+      </tr>
+      <tr>
+        <td><div class="date sun">19</div></td>
+        <td><div class="date">20</div></td>
+        <td><div class="date">21</div></td>
+        <td><div class="date">22</div></td>
+        <td><div class="date">23</div></td>
+        <td><div class="date">24</div></td>
+        <td><div class="date sat">25</div></td>
+      </tr>
+      <tr>
+        <td><div class="date sun">26</div></td>
+        <td><div class="date">27</div></td>
+        <td><div class="date">28</div></td>
+        <td><div class="date">29</div></td>
+        <td><div class="date">30</div></td>
+        <td><div class="date">31</div></td>
+        <td></td>
+      </tr>
+    </table>
     """
 
-    for d in cells:
-        if d == "":
-            html += '<div class="mobile-day blank"></div>'
-            continue
-
-        cls = "mobile-day"
-        if d in [8, 9, 10]:
-            cls += " trip"
-        if d in [11, 12]:
-            cls += " concert"
-
-        note = day_summaries.get(d, "")
-        html += f"""
-        <div class="{cls}">
-            <div class="day-num">{d}</div>
-            <div class="day-note">{escape(note)}</div>
-        </div>
-        """
-
-    html += "</div>"
-    st.markdown(html, unsafe_allow_html=True)
-
-    st.markdown("### 🍀 날짜별 일정")
-    for day_key in ["7/8", "7/9", "7/10", "7/11", "7/12"]:
-        first_item = st.session_state.events.get(day_key, [""])[0]
-        st.markdown(f"""
-        <div class="timeline-box">
-            <span class="memo-strip">{day_key}</span><br>
-            <b>{escape(first_item)}</b>
-        </div>
-        """, unsafe_allow_html=True)
+    components.html(html, height=1040, scrolling=False)
 
 
 elif menu == "🗓️ 상세 일정":
     st.header("🗓️ 상세 일정 수정")
 
-    selected_day = st.selectbox(
-        "날짜 선택",
-        ["7/8", "7/9", "7/10", "7/11", "7/12"],
-        label_visibility="collapsed"
-    )
+    selected_day = st.selectbox("날짜 선택", ["7/8", "7/9", "7/10", "7/11", "7/12"])
 
     day_titles = {
         "7/8": "✈️ 출국 · 오사카 도착",
@@ -1317,37 +1162,6 @@ elif menu == "🗺️ 이동방법":
             st.warning("형식에 맞게 입력해줘. 예: 신오사카 → 교토 | JR 교토선 | 약 30분")
 
 
-elif menu == "⋯ 더보기":
-    st.header("⋯ 더보기")
-
-    st.markdown("""
-    <div class="card">
-        <div class="sticker">MORE MENU</div>
-        <h3>필요한 메뉴를 골라서 열기</h3>
-        <p>하단 탭에는 자주 쓰는 메뉴만 두고, 나머지는 여기에서 빠르게 이동해.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    more_items = [
-        ("📍 가고싶은 곳", "쇼핑·카페·관광 후보"),
-        ("✈️ 항공권", "출국/귀국 항공편"),
-        ("🚄 교통", "하루카·신칸센 메모"),
-        ("🏨 숙소", "렘 신오사카·롯폰기"),
-        ("🎤 공연", "Keio Arena 일정"),
-        ("✅ 준비물", "여권·티켓·응원봉"),
-        ("📎 파일 보관함", "바우처·영수증"),
-        ("📝 메모", "자유 메모/할 일"),
-        ("💾 저장/초기화", "데이터 저장 관리"),
-    ]
-
-    for i in range(0, len(more_items), 2):
-        cols = st.columns(2)
-        for col, (target, desc) in zip(cols, more_items[i:i+2]):
-            with col:
-                if st.button(f"{target}\\n{desc}", key=f"more_{target}", use_container_width=True):
-                    set_menu(target)
-
-
 elif menu == "📍 가고싶은 곳":
     st.header("📍 가고 싶은 곳 / 장소 카드")
 
@@ -1372,7 +1186,7 @@ elif menu == "📍 가고싶은 곳":
         edited_places = st.data_editor(
             st.session_state.places,
             num_rows="dynamic",
-            width="stretch",
+            use_container_width=True,
             column_config={
                 "구분": st.column_config.SelectboxColumn(
                     "구분",
@@ -1459,7 +1273,7 @@ elif menu == "💴 여행 가계부":
         edited_fx = st.data_editor(
             st.session_state.fx,
             num_rows="dynamic",
-            width="stretch",
+            use_container_width=True,
             column_config={
                 "환율": st.column_config.NumberColumn("환율", min_value=0.0, step=0.01, format="%.2f원")
             }
@@ -1484,7 +1298,7 @@ elif menu == "💴 여행 가계부":
         edited_expenses = st.data_editor(
             expenses_for_edit,
             num_rows="dynamic",
-            width="stretch",
+            use_container_width=True,
             column_config={
                 "엔화": st.column_config.NumberColumn("엔화", min_value=0, step=100, format="¥%d"),
                 "원화": st.column_config.NumberColumn("원화", min_value=0, step=1000, format="%d원"),
@@ -1553,7 +1367,7 @@ elif menu == "✅ 준비물":
     edited_checklist = st.data_editor(
         st.session_state.checklist,
         num_rows="dynamic",
-        width="stretch",
+        use_container_width=True,
         column_config={
             "구분": st.column_config.SelectboxColumn(
                 "구분",
@@ -1624,7 +1438,7 @@ elif menu == "📎 파일 보관함":
 
     if not st.session_state.attachments.empty:
         st.subheader("보관된 파일")
-        st.dataframe(st.session_state.attachments, width="stretch")
+        st.dataframe(st.session_state.attachments, use_container_width=True)
     else:
         st.info("아직 보관된 파일이 없어.")
 
@@ -1661,7 +1475,7 @@ elif menu == "📝 메모":
         edited_todos = st.data_editor(
             st.session_state.todos,
             num_rows="dynamic",
-            width="stretch",
+            use_container_width=True,
             column_config={
                 "완료": st.column_config.CheckboxColumn("완료")
             }
@@ -1706,6 +1520,3 @@ elif menu == "💾 저장/초기화":
             st.session_state.attachments = DEFAULT_ATTACHMENTS.copy()
             save_data()
             st.warning("기본값으로 초기화했어.")
-
-
-render_bottom_tabs()
