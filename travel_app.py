@@ -372,51 +372,51 @@ def apply_fx_by_date(expenses, fx):
 # -----------------------------
 # CSS
 # -----------------------------
-st.markdown(f"""
+CSS_TEXT = """
 <style>
-{FONT_CSS}
+__FONT_CSS__
 
-* {{
+* {
     font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
     box-sizing: border-box;
-}}
+}
 
-html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput, .stSelectbox, .stRadio, button {{
+html, body, [class*="css"], .stApp, .stMarkdown, .stButton, .stTextInput, .stSelectbox, .stRadio, button {
     font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important;
-}}
+}
 
-html, body, .stApp {{
+html, body, .stApp {
     font-size: 18px;
-}}
+}
 
-.stApp {{
+.stApp {
     background:
         radial-gradient(circle at 8% 8%, rgba(210,231,183,0.28), transparent 20%),
         radial-gradient(circle at 92% 8%, rgba(238,248,225,0.50), transparent 22%),
         linear-gradient(180deg, #fbfaf3 0%, #ffffff 48%, #f6fbef 100%);
     color: #2f3a2f;
-}}
+}
 
 /* Streamlit 기본 헤더/사이드바 아이콘 문제 방지 */
-header[data-testid="stHeader"] {{
+header[data-testid="stHeader"] {
     background: rgba(251,250,243,0.82) !important;
-}}
-section[data-testid="stSidebar"] {{
+}
+section[data-testid="stSidebar"] {
     display: none !important;
-}}
-button[kind="header"] {{
+}
+button[kind="header"] {
     display: none !important;
-}}
+}
 
-.block-container {{
+.block-container {
     max-width: 980px;
     padding-top: 1rem;
     padding-bottom: 6.8rem;
     padding-left: 1.1rem;
     padding-right: 1.1rem;
-}}
+}
 
-.mobile-topbar {{
+.mobile-topbar {
     position: sticky;
     top: 0;
     z-index: 999;
@@ -428,9 +428,9 @@ button[kind="header"] {{
     margin-bottom: 4px;
     background: rgba(251,250,243,0.90);
     backdrop-filter: blur(12px);
-}}
+}
 
-.mobile-brand {{
+.mobile-brand {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -438,9 +438,9 @@ button[kind="header"] {{
     font-weight: 900;
     color: #2f3a2f;
     white-space: nowrap;
-}}
+}
 
-.mobile-icon-btn {{
+.mobile-icon-btn {
     width: 36px;
     height: 36px;
     border-radius: 14px;
@@ -451,25 +451,25 @@ button[kind="header"] {{
     justify-content: center;
     box-shadow: 0 5px 14px rgba(127,150,94,0.10);
     font-size: 18px;
-}}
+}
 
-.nav-select-wrap {{
+.nav-select-wrap {
     padding: 10px 14px 12px 14px;
     margin-bottom: 16px;
     border-radius: 20px;
     background: rgba(255,255,255,0.94);
     border: 1px solid #dfe8cf;
     box-shadow: 0 8px 20px rgba(127,150,94,0.10);
-}}
+}
 
-.nav-select-wrap .nav-label {{
+.nav-select-wrap .nav-label {
     color: #55714e;
     font-size: 14px;
     margin-bottom: 5px;
     font-weight: 900;
-}}
+}
 
-.main-hero {{
+.main-hero {
     position: relative;
     padding: 22px 28px;
     border-radius: 24px;
@@ -477,25 +477,25 @@ button[kind="header"] {{
     border: 1px solid #dfe8cf;
     box-shadow: 0 12px 28px rgba(127,150,94,0.13);
     margin-bottom: 20px;
-}}
+}
 
-.main-hero::before {{
+.main-hero::before {
     content: "🍀 ✧ 𖧷";
     position: absolute;
     right: 24px;
     top: 16px;
     color: #9bbd7a;
     font-size: 28px;
-}}
+}
 
-.main-title {{
+.main-title {
     font-size: 42px;
     line-height: 1.08;
     font-weight: 900;
     color: #2f3a2f;
-}}
+}
 
-.sub-title {{
+.sub-title {
     display: inline-block;
     margin-top: 8px;
     padding: 6px 13px;
@@ -503,15 +503,15 @@ button[kind="header"] {{
     border: 1px dashed #b8cfa2;
     color: #55714e;
     font-size: 17px;
-}}
+}
 
-.mood-line {{
+.mood-line {
     margin-top: 12px;
     font-size: 19px;
     color: #8aa36c;
-}}
+}
 
-.card, .place-card {{
+.card, .place-card {
     position: relative;
     padding: 18px;
     border-radius: 20px;
@@ -519,25 +519,25 @@ button[kind="header"] {{
     border: 1px solid #dfe8cf;
     box-shadow: 0 8px 20px rgba(127,150,94,0.10);
     margin-bottom: 14px;
-}}
+}
 
-.card::after {{
+.card::after {
     content: "✦";
     position: absolute;
     right: 18px;
     top: 14px;
     color: #c9dbaa;
-}}
+}
 
-.card-soft {{
+.card-soft {
     padding: 17px;
     border-radius: 18px;
     background: linear-gradient(135deg, #ffffff, #f7fbef);
     border: 1px dashed #b8cfa2;
     margin-bottom: 12px;
-}}
+}
 
-.sticker {{
+.sticker {
     display: inline-block;
     padding: 5px 13px;
     border-radius: 999px;
@@ -546,9 +546,9 @@ button[kind="header"] {{
     border: 1px dashed #9fbd84;
     font-weight: 900;
     margin-bottom: 10px;
-}}
+}
 
-.memo-strip, .category-pill {{
+.memo-strip, .category-pill {
     display: inline-block;
     background: #ffffff;
     border: 1px solid #e6e0d0;
@@ -556,47 +556,47 @@ button[kind="header"] {{
     padding: 5px 11px;
     margin: 4px;
     border-radius: 999px;
-}}
+}
 
-.big-number {{
+.big-number {
     font-size: 30px;
     font-weight: 900;
     color: #3e5b38;
-}}
+}
 
-.info-line {{
+.info-line {
     padding: 10px 13px;
     margin: 7px 0;
     border-radius: 14px;
     background: rgba(255,255,255,0.88);
     border: 1px solid #dfe8cf;
-}}
+}
 
-.route-card {{
+.route-card {
     padding: 14px 16px;
     border-radius: 18px;
     background: linear-gradient(135deg, #ffffff, #f8fbef);
     border: 1px solid #dfe8cf;
     box-shadow: 0 6px 14px rgba(127,150,94,0.08);
     margin-bottom: 10px;
-}}
+}
 
-.route-arrow {{
+.route-arrow {
     color: #7d9d66;
     font-weight: 900;
     font-size: 22px;
-}}
+}
 
-.timeline-box {{
+.timeline-box {
     padding: 13px 16px;
     border-left: 5px solid #b8cfa2;
     background: rgba(255,255,255,0.92);
     border-radius: 16px;
     margin-bottom: 9px;
     box-shadow: 0 6px 14px rgba(127,150,94,0.08);
-}}
+}
 
-.expense-row {{
+.expense-row {
     display: grid;
     grid-template-columns: .7fr 1fr 1.4fr 1fr 1fr 1fr;
     gap: 8px;
@@ -606,50 +606,50 @@ button[kind="header"] {{
     border-radius: 16px;
     background: rgba(255,255,255,0.94);
     border: 1px solid #dfe8cf;
-}}
+}
 
-.expense-head {{
+.expense-head {
     color: #55714e;
     font-weight: 900;
     background: #f2f8e8;
-}}
+}
 
-.settle-done {{ color: #3e7c43; }}
-.settle-plan {{ color: #b67b43; }}
+.settle-done { color: #3e7c43; }
+.settle-plan { color: #b67b43; }
 
-.map-note {{
+.map-note {
     padding: 14px;
     border-radius: 18px;
     border: 1px dashed #b8cfa2;
     background: rgba(255,255,255,0.9);
     margin-bottom: 12px;
-}}
+}
 
-div[data-testid="stMetric"] {{
+div[data-testid="stMetric"] {
     background: rgba(255,255,255,0.94);
     padding: 15px;
     border-radius: 18px;
     border: 1px solid #dfe8cf;
     box-shadow: 0 7px 16px rgba(127,150,94,0.10);
-}}
+}
 
-.stButton > button {{
+.stButton > button {
     border-radius: 999px;
     background: linear-gradient(90deg, #d9eac4, #f4f8df);
     color: #33452f;
     border: 1px solid #b8cfa2;
     font-weight: 900;
     font-size: 18px !important;
-}}
+}
 
-.stTextArea textarea, .stTextInput input {{
+.stTextArea textarea, .stTextInput input {
     border-radius: 14px;
     border: 1px solid #cbdcb8;
     background: rgba(255,255,255,0.96);
     font-size: 18px !important;
-}}
+}
 
-.bottom-tabs {{
+.bottom-tabs {
     position: fixed;
     left: 50%;
     bottom: 12px;
@@ -662,11 +662,11 @@ div[data-testid="stMetric"] {{
     border: 1px solid #dfe8cf;
     box-shadow: 0 12px 28px rgba(88,105,70,0.18);
     backdrop-filter: blur(12px);
-}}
+}
 
-.bottom-tabs-spacer {{
+.bottom-tabs-spacer {
     height: 88px;
-}}
+}
 
 
 .mobile-calendar-grid {
@@ -784,88 +784,90 @@ div[data-testid="stMetric"] {{
 }
 
 
-h1 {{ font-size: 32px !important; }}
-h2 {{ font-size: 28px !important; }}
-h3 {{ font-size: 24px !important; }}
-p, label {{ font-size: 18px !important; }}
+h1 { font-size: 32px !important; }
+h2 { font-size: 28px !important; }
+h3 { font-size: 24px !important; }
+p, label { font-size: 18px !important; }
 
-@media (max-width: 768px) {{
-    .block-container {{
+@media (max-width: 768px) {
+    .block-container {
         max-width: 100% !important;
         padding-left: 0.85rem !important;
         padding-right: 0.85rem !important;
         padding-top: 0.55rem !important;
         padding-bottom: 6.4rem !important;
-    }}
+    }
 
-    .mobile-topbar {{
+    .mobile-topbar {
         padding-top: 8px;
-    }}
+    }
 
-    .mobile-brand {{
+    .mobile-brand {
         font-size: 19px;
-    }}
+    }
 
-    .main-hero {{
+    .main-hero {
         padding: 16px 18px !important;
         border-radius: 20px !important;
         margin-bottom: 14px !important;
-    }}
+    }
 
-    .main-hero::before {{
+    .main-hero::before {
         right: 14px !important;
         top: 12px !important;
         font-size: 18px !important;
-    }}
+    }
 
-    .main-title {{
+    .main-title {
         font-size: 27px !important;
         line-height: 1.08 !important;
         padding-right: 36px !important;
-    }}
+    }
 
-    .sub-title {{
+    .sub-title {
         font-size: 14px !important;
         padding: 5px 9px !important;
         line-height: 1.35 !important;
-    }}
+    }
 
-    .mood-line {{
+    .mood-line {
         font-size: 15px !important;
         line-height: 1.45 !important;
-    }}
+    }
 
-    h1 {{ font-size: 24px !important; }}
-    h2 {{ font-size: 20px !important; }}
-    h3 {{ font-size: 18px !important; }}
-    p, label {{ font-size: 15px !important; }}
+    h1 { font-size: 24px !important; }
+    h2 { font-size: 20px !important; }
+    h3 { font-size: 18px !important; }
+    p, label { font-size: 15px !important; }
 
-    .card, .place-card, .card-soft, .route-card, .timeline-box {{
+    .card, .place-card, .card-soft, .route-card, .timeline-box {
         padding: 14px !important;
         border-radius: 16px !important;
-    }}
+    }
 
-    .big-number {{
+    .big-number {
         font-size: 22px !important;
-    }}
+    }
 
-    .sticker, .memo-strip, .category-pill {{
+    .sticker, .memo-strip, .category-pill {
         font-size: 14px !important;
         padding: 4px 9px !important;
-    }}
+    }
 
-    .expense-row {{
+    .expense-row {
         grid-template-columns: 1fr !important;
         gap: 4px !important;
         font-size: 14px !important;
-    }}
-    .bottom-tabs {{
+    }
+    .bottom-tabs {
         bottom: 8px;
         width: calc(100% - 16px);
-    }}
-}}
+    }
+}
 </style>
-""", unsafe_allow_html=True)
+""".replace("__FONT_CSS__", FONT_CSS)
+
+st.markdown(CSS_TEXT, unsafe_allow_html=True)
 
 # -----------------------------
 # 공통 렌더 함수
