@@ -1,4 +1,3 @@
-
 import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
@@ -669,6 +668,122 @@ div[data-testid="stMetric"] {{
     height: 88px;
 }}
 
+
+.mobile-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.mobile-calendar-head {
+    text-align: center;
+    font-weight: 900;
+    color: #55714e;
+    font-size: 16px;
+    padding: 4px 0;
+}
+
+.mobile-day {
+    min-height: 74px;
+    border-radius: 18px;
+    background: rgba(255,255,255,0.94);
+    border: 1px solid #dfe8cf;
+    box-shadow: 0 5px 12px rgba(127,150,94,0.07);
+    padding: 8px 6px;
+    overflow: hidden;
+}
+
+.mobile-day.blank {
+    opacity: 0.38;
+}
+
+.mobile-day.trip {
+    border: 2px dashed #b8cfa2;
+    background: linear-gradient(135deg, #ffffff, #f2f9e8);
+}
+
+.mobile-day.concert {
+    border: 2px dashed #d9b7c5;
+    background: linear-gradient(135deg, #fffafc, #f4f8df);
+}
+
+.day-num {
+    font-size: 18px;
+    font-weight: 900;
+    color: #33452f;
+    line-height: 1;
+}
+
+.day-note {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.25;
+    color: #55714e;
+    word-break: keep-all;
+}
+
+.day-chip-row {
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    padding: 4px 0 12px 0;
+    margin-bottom: 6px;
+}
+
+.day-chip {
+    white-space: nowrap;
+    border-radius: 999px;
+    padding: 7px 12px;
+    background: #ffffff;
+    border: 1px solid #dfe8cf;
+    color: #55714e;
+    font-weight: 900;
+    box-shadow: 0 4px 10px rgba(127,150,94,0.08);
+}
+
+.day-chip.active {
+    background: #3e7c43;
+    color: white;
+}
+
+.more-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.more-card {
+    padding: 16px;
+    min-height: 92px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.94);
+    border: 1px solid #dfe8cf;
+    box-shadow: 0 8px 20px rgba(127,150,94,0.10);
+}
+
+.more-title {
+    font-size: 18px;
+    font-weight: 900;
+    color: #2f3a2f;
+}
+
+.more-desc {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #7d9d66;
+}
+
+.bottom-tabs button {
+    min-height: 54px !important;
+    padding: 5px 4px !important;
+    font-size: 13px !important;
+    line-height: 1.15 !important;
+    border-radius: 18px !important;
+}
+
+
 h1 {{ font-size: 32px !important; }}
 h2 {{ font-size: 28px !important; }}
 h3 {{ font-size: 24px !important; }}
@@ -744,11 +859,6 @@ p, label {{ font-size: 18px !important; }}
         gap: 4px !important;
         font-size: 14px !important;
     }}
-
-    div[data-testid="column"] {{
-        min-width: 100% !important;
-    }}
-
     .bottom-tabs {{
         bottom: 8px;
         width: calc(100% - 16px);
@@ -878,12 +988,13 @@ MENU_ITEMS = [
     "📅 7월 달력",
     "🗓️ 상세 일정",
     "🗺️ 이동방법",
+    "💴 여행 가계부",
+    "⋯ 더보기",
     "📍 가고싶은 곳",
     "✈️ 항공권",
     "🚄 교통",
     "🏨 숙소",
     "🎤 공연",
-    "💴 여행 가계부",
     "✅ 준비물",
     "📎 파일 보관함",
     "📝 메모",
@@ -893,9 +1004,9 @@ MENU_ITEMS = [
 BOTTOM_ITEMS = [
     ("🏠", "홈", "🏠 대시보드"),
     ("📅", "일정", "📅 7월 달력"),
-    ("🗺️", "지도/이동", "🗺️ 이동방법"),
+    ("🗓️", "상세", "🗓️ 상세 일정"),
     ("💴", "가계부", "💴 여행 가계부"),
-    ("⋯", "더보기", "📝 메모"),
+    ("⋯", "더보기", "⋯ 더보기"),
 ]
 
 if "menu" not in st.session_state or st.session_state.menu not in MENU_ITEMS:
@@ -917,21 +1028,6 @@ def render_app_topbar():
     """, unsafe_allow_html=True)
 
 
-def render_menu_select():
-    st.markdown('<div class="nav-select-wrap"><div class="nav-label">메뉴 선택</div>', unsafe_allow_html=True)
-    selected = st.selectbox(
-        "메뉴 선택",
-        MENU_ITEMS,
-        index=MENU_ITEMS.index(st.session_state.menu),
-        label_visibility="collapsed",
-        key="top_menu_select",
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
-    if selected != st.session_state.menu:
-        st.session_state.menu = selected
-        st.rerun()
-
-
 def render_bottom_tabs():
     st.markdown('<div class="bottom-tabs">', unsafe_allow_html=True)
     cols = st.columns(len(BOTTOM_ITEMS))
@@ -946,7 +1042,6 @@ def render_bottom_tabs():
 
 render_app_topbar()
 render_header()
-render_menu_select()
 menu = st.session_state.menu
 
 # -----------------------------
@@ -1032,115 +1127,80 @@ if menu == "🏠 대시보드":
 elif menu == "📅 7월 달력":
     st.header("📅 2026년 7월 전체 달력")
 
-    def event_html(day_key):
-        return "<br>".join([escape(x) for x in st.session_state.events.get(day_key, [])[:4]])
+    day_summaries = {
+        8: "출국 · 간사이",
+        9: "교토 🐇",
+        10: "도쿄 이동",
+        11: "공연 🎤",
+        12: "공연·귀국"
+    }
 
-    html = f"""
-    <style>
-      {FONT_CSS}
-      * {{ font-family: 'CuteFont', 'Malgun Gothic', sans-serif !important; }}
-      body {{ background: transparent; }}
-      .calendar {{
-        width: 100%;
-        table-layout: fixed;
-        border-spacing: 6px;
-        border-collapse: separate;
-      }}
-      .calendar th {{
-        height: 30px;
-        color: #55714e;
-        font-size: 17px;
-        font-weight: 900;
-      }}
-      .calendar td {{
-        height: 118px;
-        vertical-align: top;
-        padding: 9px;
-        border-radius: 16px;
-        background: rgba(255,255,255,0.95);
-        border: 1px solid #dfe8cf;
-        box-shadow: 0 5px 12px rgba(127,150,94,0.07);
-        font-size: 13px;
-        overflow: hidden;
-      }}
-      .sun {{ color: #d98b8b; }}
-      .sat {{ color: #7b9cce; }}
-      .date {{
-        font-weight: 900;
-        font-size: 17px;
-        margin-bottom: 4px;
-        color: #33452f;
-      }}
-      .trip {{
-        background: linear-gradient(135deg, #ffffff, #f2f9e8) !important;
-        border: 2px dashed #b8cfa2 !important;
-      }}
-      .concert {{
-        background: linear-gradient(135deg, #fffafc, #f4f8df) !important;
-        border: 2px dashed #d9b7c5 !important;
-      }}
-      .event {{
-        line-height: 1.22;
-        color: #33452f;
-      }}
-    </style>
-    <table class="calendar">
-      <tr>
-        <th class="sun">일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th class="sat">토</th>
-      </tr>
-      <tr>
-        <td></td><td></td><td></td>
-        <td><div class="date">1</div></td>
-        <td><div class="date">2</div></td>
-        <td><div class="date">3</div></td>
-        <td><div class="date sat">4</div></td>
-      </tr>
-      <tr>
-        <td><div class="date sun">5</div></td>
-        <td><div class="date">6</div></td>
-        <td><div class="date">7</div></td>
-        <td class="trip"><div class="date">8</div><div class="event">{event_html("7/8")}</div></td>
-        <td class="trip"><div class="date">9 🐇</div><div class="event">{event_html("7/9")}</div></td>
-        <td class="trip"><div class="date">10</div><div class="event">{event_html("7/10")}</div></td>
-        <td class="concert"><div class="date sat">11</div><div class="event">{event_html("7/11")}</div></td>
-      </tr>
-      <tr>
-        <td class="concert"><div class="date sun">12</div><div class="event">{event_html("7/12")}</div></td>
-        <td><div class="date">13</div></td>
-        <td><div class="date">14</div></td>
-        <td><div class="date">15</div></td>
-        <td><div class="date">16</div></td>
-        <td><div class="date">17</div></td>
-        <td><div class="date sat">18</div></td>
-      </tr>
-      <tr>
-        <td><div class="date sun">19</div></td>
-        <td><div class="date">20</div></td>
-        <td><div class="date">21</div></td>
-        <td><div class="date">22</div></td>
-        <td><div class="date">23</div></td>
-        <td><div class="date">24</div></td>
-        <td><div class="date sat">25</div></td>
-      </tr>
-      <tr>
-        <td><div class="date sun">26</div></td>
-        <td><div class="date">27</div></td>
-        <td><div class="date">28</div></td>
-        <td><div class="date">29</div></td>
-        <td><div class="date">30</div></td>
-        <td><div class="date">31</div></td>
-        <td></td>
-      </tr>
-    </table>
+    st.markdown("""
+    <div class="card">
+        <div class="sticker">JULY PLAN</div>
+        <h3>여행 날짜 한눈에 보기</h3>
+        <p>7/8~7/12 일정만 크게 표시해서 모바일에서 보기 편하게 정리했어.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    cells = []
+    cells.extend([""] * 3)  # 2026년 7월 1일은 수요일
+    cells.extend(list(range(1, 32)))
+    while len(cells) % 7 != 0:
+        cells.append("")
+
+    html = """
+    <div class="mobile-calendar-grid">
+        <div class="mobile-calendar-head">일</div>
+        <div class="mobile-calendar-head">월</div>
+        <div class="mobile-calendar-head">화</div>
+        <div class="mobile-calendar-head">수</div>
+        <div class="mobile-calendar-head">목</div>
+        <div class="mobile-calendar-head">금</div>
+        <div class="mobile-calendar-head">토</div>
     """
 
-    components.html(html, height=760, scrolling=False)
+    for d in cells:
+        if d == "":
+            html += '<div class="mobile-day blank"></div>'
+            continue
+
+        cls = "mobile-day"
+        if d in [8, 9, 10]:
+            cls += " trip"
+        if d in [11, 12]:
+            cls += " concert"
+
+        note = day_summaries.get(d, "")
+        html += f"""
+        <div class="{cls}">
+            <div class="day-num">{d}</div>
+            <div class="day-note">{escape(note)}</div>
+        </div>
+        """
+
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
+    st.markdown("### 🍀 날짜별 일정")
+    for day_key in ["7/8", "7/9", "7/10", "7/11", "7/12"]:
+        first_item = st.session_state.events.get(day_key, [""])[0]
+        st.markdown(f"""
+        <div class="timeline-box">
+            <span class="memo-strip">{day_key}</span><br>
+            <b>{escape(first_item)}</b>
+        </div>
+        """, unsafe_allow_html=True)
 
 
 elif menu == "🗓️ 상세 일정":
     st.header("🗓️ 상세 일정 수정")
 
-    selected_day = st.selectbox("날짜 선택", ["7/8", "7/9", "7/10", "7/11", "7/12"])
+    selected_day = st.selectbox(
+        "날짜 선택",
+        ["7/8", "7/9", "7/10", "7/11", "7/12"],
+        label_visibility="collapsed"
+    )
 
     day_titles = {
         "7/8": "✈️ 출국 · 오사카 도착",
@@ -1253,6 +1313,37 @@ elif menu == "🗺️ 이동방법":
             st.success("이동방법 저장 완료!")
         else:
             st.warning("형식에 맞게 입력해줘. 예: 신오사카 → 교토 | JR 교토선 | 약 30분")
+
+
+elif menu == "⋯ 더보기":
+    st.header("⋯ 더보기")
+
+    st.markdown("""
+    <div class="card">
+        <div class="sticker">MORE MENU</div>
+        <h3>필요한 메뉴를 골라서 열기</h3>
+        <p>하단 탭에는 자주 쓰는 메뉴만 두고, 나머지는 여기에서 빠르게 이동해.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    more_items = [
+        ("📍 가고싶은 곳", "쇼핑·카페·관광 후보"),
+        ("✈️ 항공권", "출국/귀국 항공편"),
+        ("🚄 교통", "하루카·신칸센 메모"),
+        ("🏨 숙소", "렘 신오사카·롯폰기"),
+        ("🎤 공연", "Keio Arena 일정"),
+        ("✅ 준비물", "여권·티켓·응원봉"),
+        ("📎 파일 보관함", "바우처·영수증"),
+        ("📝 메모", "자유 메모/할 일"),
+        ("💾 저장/초기화", "데이터 저장 관리"),
+    ]
+
+    for i in range(0, len(more_items), 2):
+        cols = st.columns(2)
+        for col, (target, desc) in zip(cols, more_items[i:i+2]):
+            with col:
+                if st.button(f"{target}\\n{desc}", key=f"more_{target}", use_container_width=True):
+                    set_menu(target)
 
 
 elif menu == "📍 가고싶은 곳":
